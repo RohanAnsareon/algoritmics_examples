@@ -1,5 +1,3 @@
-import { Observable, of } from "rxjs";
-
 export interface Todo {
     id: number;
     title: string;
@@ -14,7 +12,7 @@ class TodoService {
     }
 
     getTodos(): Todo[] {
-        return this._todos;
+        return [...this._todos];
     }
 
     addTodo(title: string) {

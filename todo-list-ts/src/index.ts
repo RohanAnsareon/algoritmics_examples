@@ -1,9 +1,10 @@
+import './style.scss';
+
 import TodoService, { Todo } from "./todo-service";
 import { getElement } from "./utils";
 
-
 class Application {
-    private _todos: Todo[] = []
+    private _todos: Todo[] = [];
 
     private todoForm: HTMLFormElement;
     private todoList: HTMLElement;
@@ -43,7 +44,6 @@ class Application {
 
             this.todoList.append(listItem);
         });
-
     }
 
     handleDelete(id: number) {
@@ -53,10 +53,10 @@ class Application {
     handleSubmit(event: SubmitEvent) {
         event.preventDefault();
         const formData = new FormData(this.todoForm);
-        const title = formData.get('title');
+        const title = formData.get('title') as string;
 
-        if (title) {
-            this.todoService.addTodo(title as string);
+        if (title.trim()) {
+            this.todoService.addTodo(title);
         }
 
         this.todoForm.reset();
@@ -68,6 +68,7 @@ class Application {
         this.sortDirection = !this.sortDirection;
         this.sortBtn.disabled = false;
         this.sortBtn.innerHTML = (`Sort ${this.sortDirection ? '^' : '∨'}`);
+        this.sortBtn.style.backgroundColor = this.sortDirection ? 'green' : 'red';
     }
 }
 

@@ -6,7 +6,7 @@
     "serve": "webpack serve --open --mode=development",
     "build": "webpack --mode=production",
     "build:dev": "webpack --mode=development",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "project": "https://docs.google.com/document/d/15k4bl8DOXVMjixzJ9GlO9CiZDvqyliRVdXvxW7A9xYE/edit"
   },
   "keywords": [],
   "author": "",
