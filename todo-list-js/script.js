@@ -172,6 +172,7 @@ class Application {
     /**
      * Shows error message.
      * @param {string} message Error message.
+     * @private
      */
     _showError(message) {
         // console.log(message);
@@ -345,6 +346,5 @@ class TodoService {
         throw new Error(`There are no such todo with ${id} id.`)
     }
 }
-
 
 const app = new Application(new TodoService());
