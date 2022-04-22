@@ -2,6 +2,8 @@ const apiBaseUrl = 'https://api.exchangerate.host';
 const form = document.querySelector('#converter-form');
 const fromInput = document.querySelector('input[name=from-amount]');
 const toInput = document.querySelector('input[name=to-amount]');
+const fromRate = document.querySelector('#from-rate');
+const toRate = document.querySelector('#to-rate');
 
 window.addEventListener('load', e => initData());
 
@@ -15,7 +17,6 @@ const maskOptions = {
     normalizeZeros: true,
     radix: '.',
     mapToRadix: ['.'],
-    max: 1000000000000
 };
 
 const fromMask = IMask(fromInput, maskOptions);
@@ -38,5 +39,12 @@ async function initData(direction = true) {
     url.searchParams.set('places', 4);
 
     const response = await fetch(url).then(r => r.json());
-    (direction ? toMask : fromMask).value = response.result?.toString() || '';
+
+    if (direction) {
+        toMask.value = response.result?.toString() || '';
+        fromRate.innerHTML = `1 ${data.from} = ${response.info.rate} ${data.to}`;
+        toRate.innerHTML = `1 ${data.to} = ${Math.round(10000 / response.info.rate) / 10000} ${data.from}`;
+    } else {
+        fromMask.value = response.result?.toString() || '';
+    }
 }
