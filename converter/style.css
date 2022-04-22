@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+body {
+    font-family: Roboto;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+:root {
+    --radio-selected: #833AE0;
+    --outline-color: #d3d3d3;
+    --text-color: #a1a1a1;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    align-self: center;
+}
+
+.converter-form {
+    display: flex;
+}
+
+.controls-group {
+    margin-right: auto;
+    width: 45%;
+}
+
+.controls-group>label {
+    font-size: large;
+    color: var(--text-color);
+}
+
+.currencies {
+    display: flex;
+    border: solid 1px var(--outline-color);
+    border-radius: 5px;
+    box-sizing: border-box;
+    width: 100%;
+    overflow: scroll;
+    color: var(--text-color);
+    margin: 7% 0;
+    margin-top: 2%;
+}
+
+.currencies {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+}
+
+.currencies::-webkit-scrollbar {
+    display: none;
+}
+
+.currencies label {
+    border-left: solid 1px var(--outline-color);
+    padding: 15px;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+}
+
+.currencies label:first-of-type {
+    border-left: none;
+}
+
+input[type=radio] {
+    display: none;
+}
+
+input[type=radio]:checked+label {
+    background-color: var(--radio-selected);
+    color: white;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    border: solid 1px var(--outline-color);
+    border-radius: 5px;
+    padding: 2%;
+}
+
+.card input {
+    outline: none;
+    border: 0;
+    padding: 2%;
+    font-size: xx-large;
+    width: auto;
+}
+
+.card p {
+    color: var(--text-color);
+    margin: 9% 0 0 2%;
+}

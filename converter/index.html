@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Converter</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="content">
+        <h1>Online currency converter</h1>
+
+        <form id="converter-form" class="converter-form">
+
+            <div class="controls-group">
+                <label for="from">I have</label>
+                <div class="currencies" id="from">
+                    <input type="radio" name="from" id="rub-from" value="RUB" checked>
+                    <label for="rub-from">RUB</label>
+                    <input type="radio" name="from" id="usd-from" value="USD">
+                    <label for="usd-from">USD</label>
+                    <input type="radio" name="from" id="eur-from" value="EUR">
+                    <label for="eur-from">EUR</label>
+                    <input type="radio" name="from" id="gbp-from" value="GBP">
+                    <label for="gbp-from">GBP</label>
+                </div>
+
+                <div class="card">
+                    <input class="converter-input" name="from-amount" value="1">
+                    <p>1 RUB = 0.0135 USD</p>
+                </div>
+            </div>
+
+            <div class="controls-group">
+                <label for="to">Wanna buy</label>
+                <div class="currencies" id="to">
+                    <input type="radio" name="to" id="rub-to" value="RUB">
+                    <label for="rub-to">RUB</label>
+                    <input type="radio" name="to" id="usd-to" value="USD" checked>
+                    <label for="usd-to">USD</label>
+                    <input type="radio" name="to" id="eur-to" value="EUR">
+                    <label for="eur-to">EUR</label>
+                    <input type="radio" name="to" id="gbp-to" value="GBP">
+                    <label for="gbp-to">GBP</label>
+                </div>
+
+                <div class="card">
+                    <input class="converter-input" name="to-amount">
+                    <p>1 RUB = 0.0135 USD</p>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+    <script src="https://unpkg.com/imask"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

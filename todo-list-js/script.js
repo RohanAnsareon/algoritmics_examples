@@ -5,6 +5,20 @@
  */
 const TODOS = 'TODOS';
 
+class DataChangeEvent {
+    constructor() {
+        this._listeners = [];
+    }
+
+    emit(data) {
+        this._listeners.forEach(l => l(data));
+    }
+
+    subscribe(...callback) {
+        this._listeners = [...this._listeners, ...callback];
+    }
+}
+
 /**
  * Application class that controlls application workflow.
  */
@@ -60,6 +74,7 @@ class Application {
 
         this._addBtn.addEventListener('click', e => this._handleAdd());
         this._sortBtn.addEventListener('click', e => this._handleSort());
+        this._todoService.dataChangeEvent.subscribe(() => this._displayTodos());
         this._displayTodos();
     }
 
@@ -118,7 +133,6 @@ class Application {
     _handleAdd() {
         try {
             this._todoService.addTodo();
-            this._displayTodos();
         } catch (error) {
             this._showError(error.message);
         }
@@ -133,7 +147,6 @@ class Application {
     _handleEdit(id, title) {
         try {
             this._todoService.editTodo(id, title);
-            this._displayTodos();
         } catch (error) {
             this._showError(error.message);
         }
@@ -146,7 +159,6 @@ class Application {
      */
     _handleDelete(id) {
         this._todoService.deleteTodo(id);
-        this._displayTodos();
     }
 
     /**
@@ -218,11 +230,14 @@ class TodoService {
      */
     _todos;
 
+    dataChangeEvent;
+
     /**
      * Creates todo service.
      * @param {{id: number, title: string}[]} todos If passed, todos from storage will be combined with passed todos.
      */
     constructor(todos = []) {
+        this.dataChangeEvent = new DataChangeEvent();
         this._todos = todos;
         this._init();
     }
@@ -246,6 +261,7 @@ class TodoService {
      */
     _commit() {
         localStorage.setItem(TODOS, JSON.stringify(this._todos));
+        this.dataChangeEvent.emit();
     }
 
     /**
@@ -326,7 +342,9 @@ class TodoService {
      * @returns {number} Id.
      */
     _generateId() {
-        return this._todos?.length ? (this._todos[0].id + 1) : 1;
+        const id = [...this._todos].sort((t1, t2) => t1.id < t2.id)[0].id + 1;
+
+        return this._todos?.length ? id : 1;
     }
 
     /**
