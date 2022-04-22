@@ -5,7 +5,7 @@ const toInput = document.querySelector('input[name=to-amount]');
 
 window.addEventListener('load', e => initData());
 
-var numberMask = IMask.createMask({
+const maskOptions = {
     mask: Number,  // enable number mask
 
     scale: 4,
@@ -15,7 +15,11 @@ var numberMask = IMask.createMask({
     normalizeZeros: true,
     radix: '.',
     mapToRadix: ['.'],
-});
+    max: 1000000000000
+};
+
+const fromMask = IMask(fromInput, maskOptions);
+const toMask = IMask(toInput, maskOptions);
 
 form.addEventListener('input', e => {
     e.target.name === 'to-amount' ? initData(false) : initData();
@@ -30,13 +34,9 @@ async function initData(direction = true) {
     const url = new URL('/convert', apiBaseUrl);
     url.searchParams.set('from', direction ? data.from : data.to);
     url.searchParams.set('to', direction ? data.to : data.from);
-    url.searchParams.set('amount', clearString(direction ? data['from-amount'] : data['to-amount']));
+    url.searchParams.set('amount', (direction ? fromMask : toMask).unmaskedValue);
     url.searchParams.set('places', 4);
 
     const response = await fetch(url).then(r => r.json());
-    (direction ? toInput : fromInput).value = numberMask.resolve(response.result.toString());
-}
-
-function clearString(value) {
-    return value.replace(/\s/g, '');
+    (direction ? toMask : fromMask).value = response.result?.toString() || '';
 }
